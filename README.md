@@ -1,1 +1,22 @@
 # premier-league-score-random
+Format : `- QUOTE [TAGS]`
+- Arsenal
+- Aston Villa
+- Brentford
+- Brighton and Hove Albion
+- Burnley
+- Chelsea
+- Crystal Palace
+- Everton
+- Leeds United
+- Leicester City
+- Liverpool
+- Manchester City
+- Manchester United
+- Newcastle United
+- Norwich City
+- Southampton
+- Tottenham Hotspur
+- Watford
+- West Ham United
+- Wolverhampton Wanderers
