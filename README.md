@@ -1,4 +1,3 @@
-# premier-league-score-random
 - Arsenal
 - Aston Villa
 - Brentford
