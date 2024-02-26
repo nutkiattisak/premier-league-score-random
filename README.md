@@ -1,20 +1,20 @@
 - Arsenal
 - Aston Villa
+- Bournemouth
 - Brentford
-- Brighton and Hove Albion
+- Brighton & Hove Albion
 - Burnley
 - Chelsea
 - Crystal Palace
 - Everton
-- Leeds United
-- Leicester City
+- Fulham
 - Liverpool
+- Luton Town
 - Manchester City
 - Manchester United
 - Newcastle United
-- Norwich City
-- Southampton
+- Nottingham Forest
+- Sheffield United
 - Tottenham Hotspur
-- Watford
 - West Ham United
 - Wolverhampton Wanderers
