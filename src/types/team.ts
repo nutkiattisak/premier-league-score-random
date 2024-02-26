@@ -9,4 +9,5 @@ export interface Team {
     goalsAgainst: number;
     goalDifference: number;
     points: number;
+    score: number
 }
