@@ -43,6 +43,7 @@ const App: React.FC = () => {
           goalsAgainst: 0,
           goalDifference: 0,
           points: 0,
+          score: 0,
         }
       })
   }
