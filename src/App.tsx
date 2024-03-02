@@ -4,8 +4,10 @@ import RandomScore from '@/components/random-score'
 import Header from '@/components/header'
 import { Team } from '@/types/team'
 import { useQuery } from '@tanstack/react-query'
+import { useMatchWeek } from '@/store/match-day'
 
 const App: React.FC = () => {
+  const MatchWeek = useMatchWeek((state) => state.MatchWeek)
   const fetchData = async () => {
     try {
       const url =
@@ -53,6 +55,7 @@ const App: React.FC = () => {
       <div>
         <Header title="Premier League" />
         <div className="container mx-auto">
+          { MatchWeek > 0 && <h2 className='text-lg font-semibold'>Matchweek {MatchWeek}</h2> }
           {data && (
             <>
               <RandomScore team={data} />
