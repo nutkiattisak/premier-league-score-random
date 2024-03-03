@@ -1,14 +1,31 @@
 import { Team } from '@/types/team'
+import { useTeamStatsStore } from '@/store/match-history'
 
 interface Props {
-  team: Team[];
+  team: Team[]
 }
 
+type SortTeam = Pick<Team, 'points' | 'goalDifference' | 'goalsFor'>;
+
 const Table: React.FC<Props> = ({ team }) => {
+  const allStats = useTeamStatsStore((state) => state.teamStats)
+
+  const sortByCriteria = (a: SortTeam, b: SortTeam) => {
+    if (b.points !== a.points) {
+      return b.points - a.points
+    } else if (b.goalDifference !== a.goalDifference) {
+      return b.goalDifference - a.goalDifference
+    } else {
+      return b.goalsFor - a.goalsFor
+    }
+  }
+
   const renderTableRows = () => {
-    return team.map((item) => (
-      <tr key={item.id} className="bg-white bg-opacity-20">
-        <td className="px-6 py-4 text-center">{item.id}</td>
+    const data = allStats.length > 0 ? Object.values(allStats[0]).sort(sortByCriteria) : team
+
+    return data.map((item, index) => (
+      <tr key={index} className="bg-white bg-opacity-20 text-primary">
+        <td className="px-6 py-4 text-center">{index + 1}</td>
         <td className="flex px-6 py-4 whitespace-nowrap">
           <span className="ml-2 font-medium">{item.name}</span>
         </td>
@@ -19,7 +36,7 @@ const Table: React.FC<Props> = ({ team }) => {
         <td className="px-6 py-4 text-center whitespace-nowrap">{item.goalsFor}</td>
         <td className="px-6 py-4 text-center whitespace-nowrap">{item.goalsAgainst}</td>
         <td className="px-6 py-4 text-center whitespace-nowrap">{item.goalDifference}</td>
-        <td className="px-6 py-4 text-center whitespace-nowrap">{item.points}</td>
+        <td className="px-6 py-4 font-semibold text-center whitespace-nowrap text-primary">{item.points}</td>
       </tr>
     ))
   }

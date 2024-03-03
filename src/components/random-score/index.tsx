@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Team } from '@/types/team'
 import { useMatchWeek } from '@/store/match-day'
+import { useTeamStatsStore } from '@/store/match-history'
 interface Props {
   team: Team[]
 }
@@ -11,21 +12,75 @@ const RandomScore: React.FC<Props> = ({ team }) => {
 
   const MatchWeek = useMatchWeek((state) => state.MatchWeek)
 
+  const allStats = useTeamStatsStore((state) => state.teamStats)
+  const { addMatchResult, resetStats } = useTeamStatsStore((state) => state)
+
   const [teamRandom, setTeamRandom] = useState<Array<[Team, Team]>>([])
 
   const shuffleAndAssignScores = (teamArray: Team[], defaultScore = false) => {
     const shuffledTeam = [...teamArray].sort(() => Math.random() - 0.5)
     const randomizedTeams: Array<[Team, Team]> = []
 
+    const team: Team[] = []
+
     for (let i = 0; i < shuffledTeam.length; i += 2) {
-      const teamA = { ...shuffledTeam[i], score: defaultScore ? 0 : Math.floor(Math.random() * 5) }
+      const scoreTeamA = defaultScore ? 0 : Math.floor(Math.random() * 5)
+      const scoreTeamB = defaultScore ? 0 : Math.floor(Math.random() * 5)
+      const teamA = { ...shuffledTeam[i], score: scoreTeamA }
       const teamB = {
         ...shuffledTeam[i + 1],
-        score: defaultScore ? 0 : Math.floor(Math.random() * 5),
+        score: scoreTeamB,
       }
 
+      team.push({
+        name: teamA.name,
+        played: MatchWeek + 1,
+        won: teamA.score > teamB.score ? 1 : 0,
+        lost: teamA.score < teamB.score ? 1 : 0,
+        drawn: teamA.score === teamB.score ? 1 : 0,
+        goalsFor: teamA.score,
+        goalsAgainst: teamB.score,
+        goalDifference: teamA.score - teamB.score,
+        points: teamA.score > teamB.score ? 3 : teamA.score === teamB.score ? 1 : 0,
+      })
+
+      team.push({
+        name: teamB.name,
+        played: MatchWeek + 1,
+        won: teamB.score > teamA.score ? 1 : 0,
+        lost: teamB.score < teamA.score ? 1 : 0,
+        drawn: teamB.score === teamA.score ? 1 : 0,
+        goalsFor: teamB.score,
+        goalsAgainst: teamA.score,
+        goalDifference: teamB.score - teamA.score,
+        points: teamB.score > teamA.score ? 3 : teamB.score === teamA.score ? 1 : 0,
+      })
       randomizedTeams.push([teamA, teamB])
     }
+
+    if (allStats.length > 0) {
+      let data = []
+      data = Object.values(allStats[0])
+
+      const targetResult: Team[] = team.map((team, index) => {
+        return {
+          name: team.name,
+          played: team.played,
+          won: (team.won += data[index].won),
+          lost: (team.lost += data[index].lost),
+          drawn: (team.drawn += data[index].drawn),
+          goalsFor: (team.goalsFor += data[index].goalsFor),
+          goalsAgainst: (team.goalsAgainst += data[index].goalsAgainst),
+          goalDifference: (team.goalDifference += data[index].goalDifference),
+          points: (team.points += data[index].points),
+        }
+      })
+
+      addMatchResult(targetResult)
+    } else {
+      addMatchResult(team)
+    }
+
     return randomizedTeams
   }
 
@@ -38,6 +93,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
   const resetMatch = () => {
     setTeamRandom([])
     resetMatchWeek()
+    resetStats()
   }
 
   return (
@@ -64,6 +120,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
           </>
         </div>
       )}
+
       <div className="flex justify-center mt-4">
         {MatchWeek < 38 ? (
           <button
