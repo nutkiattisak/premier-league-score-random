@@ -3,26 +3,32 @@ import { Team } from '@/types/team'
 
 interface TeamStatsStoreState {
   teamStats: Team[]
-  addMatchResult: (matchResult: Team) => void
+  addMatchResult: (matchResult: Team[]) => void
   resetStats: () => void
 }
 
 export const useTeamStatsStore = create<TeamStatsStoreState>((set) => ({
   teamStats: [],
 
-  addMatchResult: (matchResult) =>
+  addMatchResult: (matchResults) =>
     set((state) => {
-      const existingTeamIndex = state.teamStats.findIndex((team) => team.name === matchResult.name)
+      const updatedTeamStats = [...state.teamStats];
 
-      if (existingTeamIndex !== -1) {
-        return {
-          teamStats: state.teamStats.map((team, index) =>
-            index === existingTeamIndex ? { ...team, ...matchResult } : team
-          ),
+      matchResults.forEach((result) => {
+        const existingTeamIndex = updatedTeamStats.findIndex(
+          (team) => team.name === result.name
+        );
+
+        if (existingTeamIndex !== -1) {
+          updatedTeamStats[existingTeamIndex] = {
+            ...updatedTeamStats[existingTeamIndex],
+            ...result,
+          };
+        } else {
+          updatedTeamStats.push(result);
         }
-      } else {
-        return { teamStats: [...state.teamStats, matchResult] }
-      }
+      });
+      return { teamStats: updatedTeamStats };
     }),
 
   resetStats: () => set({ teamStats: [] }),

@@ -61,8 +61,8 @@ const RandomScore: React.FC<Props> = ({ team }) => {
     }
 
     if (allStats.length > 0) {
-      let data = []
-      data = Object.values(allStats[0])
+      let data: Team[] = []
+      data = allStats
 
       const targetResult: Team[] = team.map((team, index) => {
         return {

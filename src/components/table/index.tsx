@@ -21,7 +21,7 @@ const Table: React.FC<Props> = ({ team }) => {
   }
 
   const renderTableRows = () => {
-    const data = allStats.length > 0 ? Object.values(allStats[0]).sort(sortByCriteria) : team
+    const data = allStats.length > 0 ? allStats.sort(sortByCriteria) : team
 
     return data.map((item, index) => (
       <tr key={index} className={`bg-white bg-opacity-20 text-primary ${(index === 0 || index === 3 || index === 4) && 'border-b border-b-[#05f0ff]'}`}>
