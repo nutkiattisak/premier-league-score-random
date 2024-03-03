@@ -111,8 +111,8 @@ const RandomScore: React.FC<Props> = ({ team }) => {
               <div className={`grid grid-cols-2 gap-4 ${key !== 0 && 'mt-4'}`} key={key}>
                 <div className="flex items-center justify-end bg-gray-200 gap-x-4">
                   <div className="flex items-center gap-2">
-                    <span className='hidden md:block'>{item[0].name}</span>
-                    <span className='block md:hidden'>{item[0].abbr}</span>
+                    <span className="hidden md:block">{item[0].name}</span>
+                    <span className="block md:hidden">{item[0].abbr}</span>
                     <img src={item[0].imageUrl} alt={item[0].name} className="w-8 h-8" />
                   </div>
                   <div className="flex items-center justify-center text-xl text-white w-9 h-9 bg-primary">
@@ -125,8 +125,8 @@ const RandomScore: React.FC<Props> = ({ team }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <img src={item[1].imageUrl} alt={item[1].name} className="w-8 h-8" />
-                    <span className='hidden md:block'>{item[1].name}</span>
-                    <span className='block md:hidden'>{item[1].abbr}</span>
+                    <span className="hidden md:block">{item[1].name}</span>
+                    <span className="block md:hidden">{item[1].abbr}</span>
                   </div>
                 </div>
               </div>
