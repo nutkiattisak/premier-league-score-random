@@ -24,7 +24,7 @@ const Table: React.FC<Props> = ({ team }) => {
     const data = allStats.length > 0 ? Object.values(allStats[0]).sort(sortByCriteria) : team
 
     return data.map((item, index) => (
-      <tr key={index} className="bg-white bg-opacity-20 text-primary">
+      <tr key={index} className={`bg-white bg-opacity-20 text-primary ${(index === 0 || index === 3 || index === 4) && 'border-b border-b-[#05f0ff]'}`}>
         <td className="px-6 py-4 text-center">{index + 1}</td>
         <td className="flex items-center px-6 py-4 whitespace-nowrap">
           <img src={item.imageUrl} alt={item.name} className='w-8 h-8' />
