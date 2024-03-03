@@ -5,7 +5,7 @@ import Header from '@/components/header'
 import { useMatchWeek } from '@/store/match-day'
 import { team } from '@/constants/team'
 const App: React.FC = () => {
-  const MatchWeek = useMatchWeek((state) => state.MatchWeek)
+  const MatchWeek = useMatchWeek((state) => state.matchWeek)
 
   return (
     <>

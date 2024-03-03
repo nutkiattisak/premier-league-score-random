@@ -10,7 +10,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
   const setMatchWeek = useMatchWeek((state) => state.setMatchWeek)
   const resetMatchWeek = useMatchWeek((state) => state.resetMatchWeek)
 
-  const MatchWeek = useMatchWeek((state) => state.MatchWeek)
+  const matchWeek = useMatchWeek((state) => state.matchWeek)
 
   const allStats = useTeamStatsStore((state) => state.teamStats)
   const { addMatchResult, resetStats } = useTeamStatsStore((state) => state)
@@ -36,7 +36,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
         name: teamA.name,
         abbr: teamA.abbr,
         imageUrl: teamA.imageUrl,
-        played: MatchWeek + 1,
+        played: matchWeek + 1,
         won: teamA.score > teamB.score ? 1 : 0,
         lost: teamA.score < teamB.score ? 1 : 0,
         drawn: teamA.score === teamB.score ? 1 : 0,
@@ -50,7 +50,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
         name: teamB.name,
         abbr: teamB.abbr,
         imageUrl: teamB.imageUrl,
-        played: MatchWeek + 1,
+        played: matchWeek + 1,
         won: teamB.score > teamA.score ? 1 : 0,
         lost: teamB.score < teamA.score ? 1 : 0,
         drawn: teamB.score === teamA.score ? 1 : 0,
@@ -136,7 +136,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
       )}
 
       <div className="flex justify-center mt-4">
-        {MatchWeek < 38 ? (
+        {matchWeek < (team.length - 1) * 2 ? (
           <button
             type="button"
             onClick={randomizeScores}
