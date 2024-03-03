@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <>
       <div className='bg-pink'>
         <Header title="Premier League" />
-        <div className="container px-6 mx-auto h-dvh">
+        <div className="container h-auto px-6 mx-auto min-h-dvh">
           {MatchWeek > 0 && <h2 className="mt-4 text-xl font-semibold">Matchweek {MatchWeek}</h2>}
           {team && (
             <>
