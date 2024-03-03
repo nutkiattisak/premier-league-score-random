@@ -26,7 +26,8 @@ const Table: React.FC<Props> = ({ team }) => {
     return data.map((item, index) => (
       <tr key={index} className="bg-white bg-opacity-20 text-primary">
         <td className="px-6 py-4 text-center">{index + 1}</td>
-        <td className="flex px-6 py-4 whitespace-nowrap">
+        <td className="flex items-center px-6 py-4 whitespace-nowrap">
+          <img src={item.imageUrl} alt={item.name} className='w-8 h-8' />
           <span className="ml-2 font-medium">{item.name}</span>
         </td>
         <td className="px-6 py-4 text-center whitespace-nowrap">{item.played}</td>

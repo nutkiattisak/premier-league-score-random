@@ -34,6 +34,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
 
       team.push({
         name: teamA.name,
+        imageUrl: teamA.imageUrl,
         played: MatchWeek + 1,
         won: teamA.score > teamB.score ? 1 : 0,
         lost: teamA.score < teamB.score ? 1 : 0,
@@ -46,6 +47,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
 
       team.push({
         name: teamB.name,
+        imageUrl: teamB.imageUrl,
         played: MatchWeek + 1,
         won: teamB.score > teamA.score ? 1 : 0,
         lost: teamB.score < teamA.score ? 1 : 0,
@@ -65,6 +67,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
       const targetResult: Team[] = team.map((team, index) => {
         return {
           name: team.name,
+          imageUrl: team.imageUrl,
           played: team.played,
           won: (team.won += data[index].won),
           lost: (team.lost += data[index].lost),
@@ -104,7 +107,10 @@ const RandomScore: React.FC<Props> = ({ team }) => {
             {teamRandom.map((item, key) => (
               <div className={`grid grid-cols-2 gap-4 ${key !== 0 && 'mt-4'}`} key={key}>
                 <div className="flex items-center justify-end bg-gray-200 gap-x-4">
-                  <div>{item[0].name}</div>
+                  <div className="flex items-center gap-2">
+                    <span>{item[0].name}</span>
+                    <img src={item[0].imageUrl} alt={item[0].name} className="w-8 h-8" />
+                  </div>
                   <div className="flex items-center justify-center text-xl text-white w-9 h-9 bg-primary">
                     {item[0].score}
                   </div>
@@ -113,7 +119,10 @@ const RandomScore: React.FC<Props> = ({ team }) => {
                   <div className="flex items-center justify-center text-xl text-white w-9 h-9 bg-primary">
                     {item[1].score}
                   </div>
-                  <div>{item[1].name}</div>
+                  <div className="flex items-center gap-2">
+                    <img src={item[1].imageUrl} alt={item[1].name} className="w-8 h-8" />
+                    <span>{item[1].name}</span>
+                  </div>
                 </div>
               </div>
             ))}
