@@ -34,6 +34,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
 
       team.push({
         name: teamA.name,
+        abbr: teamA.abbr,
         imageUrl: teamA.imageUrl,
         played: MatchWeek + 1,
         won: teamA.score > teamB.score ? 1 : 0,
@@ -47,6 +48,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
 
       team.push({
         name: teamB.name,
+        abbr: teamB.abbr,
         imageUrl: teamB.imageUrl,
         played: MatchWeek + 1,
         won: teamB.score > teamA.score ? 1 : 0,
@@ -67,6 +69,7 @@ const RandomScore: React.FC<Props> = ({ team }) => {
       const targetResult: Team[] = team.map((team, index) => {
         return {
           name: team.name,
+          abbr: team.abbr,
           imageUrl: team.imageUrl,
           played: team.played,
           won: (team.won += data[index].won),
@@ -102,13 +105,14 @@ const RandomScore: React.FC<Props> = ({ team }) => {
   return (
     <>
       {teamRandom.length > 0 && (
-        <div className="container px-6 py-4 mt-3 rounded-lg bg-pink">
+        <div className="container py-4 mt-3 rounded-lg">
           <>
             {teamRandom.map((item, key) => (
               <div className={`grid grid-cols-2 gap-4 ${key !== 0 && 'mt-4'}`} key={key}>
                 <div className="flex items-center justify-end bg-gray-200 gap-x-4">
                   <div className="flex items-center gap-2">
-                    <span>{item[0].name}</span>
+                    <span className='hidden md:block'>{item[0].name}</span>
+                    <span className='block md:hidden'>{item[0].abbr}</span>
                     <img src={item[0].imageUrl} alt={item[0].name} className="w-8 h-8" />
                   </div>
                   <div className="flex items-center justify-center text-xl text-white w-9 h-9 bg-primary">
@@ -121,7 +125,8 @@ const RandomScore: React.FC<Props> = ({ team }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <img src={item[1].imageUrl} alt={item[1].name} className="w-8 h-8" />
-                    <span>{item[1].name}</span>
+                    <span className='hidden md:block'>{item[1].name}</span>
+                    <span className='block md:hidden'>{item[1].abbr}</span>
                   </div>
                 </div>
               </div>
