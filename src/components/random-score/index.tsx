@@ -63,25 +63,29 @@ const RandomScore: React.FC<Props> = ({ team }) => {
     }
 
     if (allStats.length > 0) {
-      let data: Team[] = []
-      data = allStats
-
-      const targetResult: Team[] = team.map((team, index) => {
+      const targetResult: Team[] = team.map((currentTeam) => {
+        // ค้นหาข้อมูลเก่าของทีมโดยใช้ชื่อ
+        const oldStats = allStats.find(stat => stat.name === currentTeam.name)
+        
+        if (!oldStats) {
+          return currentTeam
+        }
+        
         return {
-          name: team.name,
-          abbr: team.abbr,
-          imageUrl: team.imageUrl,
-          played: team.played,
-          won: (team.won += data[index].won),
-          lost: (team.lost += data[index].lost),
-          drawn: (team.drawn += data[index].drawn),
-          goalsFor: (team.goalsFor += data[index].goalsFor),
-          goalsAgainst: (team.goalsAgainst += data[index].goalsAgainst),
-          goalDifference: (team.goalDifference += data[index].goalDifference),
-          points: (team.points += data[index].points),
+          name: currentTeam.name,
+          abbr: currentTeam.abbr,
+          imageUrl: currentTeam.imageUrl,
+          played: oldStats.played + 1, // เพิ่มจำนวนนัดที่เล่น
+          won: currentTeam.won + oldStats.won, // รวมคะแนนชนะ
+          lost: currentTeam.lost + oldStats.lost, // รวมคะแนนแพ้
+          drawn: currentTeam.drawn + oldStats.drawn, // รวมคะแนนเสมอ
+          goalsFor: currentTeam.goalsFor + oldStats.goalsFor, // รวมประตูได้
+          goalsAgainst: currentTeam.goalsAgainst + oldStats.goalsAgainst, // รวมประตูเสีย
+          goalDifference: (currentTeam.goalsFor - currentTeam.goalsAgainst) + oldStats.goalDifference, // คำนวณผลต่างประตูใหม่
+          points: currentTeam.points + oldStats.points, // รวมคะแนน
         }
       })
-
+      
       addMatchResult(targetResult)
     } else {
       addMatchResult(team)
